@@ -271,7 +271,8 @@
                   "name": "connectionstrings",
                   "type": "config",
                   "apiVersion": "2015-08-01",
-                  "dependsOn":  [],
+                  "dependsOn":  ["[concat('Microsoft.Web/sites/', variables('webAppName'))]",
+                "[resourceId('Microsoft.Web/sites',variables('webAppName'))]"],
                   "tags": {
                     "displayName": "ConnectionString"
                   },
@@ -293,8 +294,7 @@
             "name": "[concat(variables('webAppName'),'/MsDeploy')]",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites',variables('webAppName'))]",
-                "[concat('Microsoft.Web/sites/', variables('webAppName'))]"
+                
             ],
             "tags": {},
             "properties": {
