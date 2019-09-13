@@ -291,7 +291,7 @@
             
         },
           {
-              
+              "name": "",
               "type": "config",
               "apiVersion": "2015-08-01",
               "dependsOn":  [ "[concat('Microsoft.Web/sites/extensions', variables('webAppName'),'/MsDeploy')]"],
