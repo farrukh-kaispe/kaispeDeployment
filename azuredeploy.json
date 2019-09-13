@@ -293,7 +293,7 @@
             "name": "[concat(variables('webAppName'),'/MsDeploy')]",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites',variables('webAppName'),'/MsDeploy')]"
+                "[resourceId('Microsoft.Web/sites','/MsDeploy')]"
             ],
             "tags": {},
             "properties": {
