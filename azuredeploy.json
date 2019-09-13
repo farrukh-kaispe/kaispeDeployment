@@ -266,7 +266,25 @@
                 "name": "[variables('webAppName')]",
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServiceName'))]"
             },
-           
+            "resources": [
+                {
+                  "name": "connectionstrings",
+                  "type": "config",
+                  "apiVersion": "2015-08-01",
+                  "dependsOn":  [],
+                  "tags": {
+                    "displayName": "ConnectionString"
+                  },
+                  "properties": {
+        
+                    "storage": {
+                      "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',concat(listKeys(variables('storageAccountId'),'2015-05-01-preview').key1))]",
+                      "type": "Custom"
+                    }
+        
+                  }
+                }
+              ]  
 
         },
         {
@@ -275,11 +293,10 @@
             "name": "[concat(variables('webAppName'),'/MsDeploy')]",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites',variables('webAppName'))]"
+                "[resourceId('Microsoft.Web/sites',variables('webAppName'))]",
+                "[concat('Microsoft.Web/sites/', variables('webAppName'))]"
             ],
-
             "tags": {},
-           
             "properties": {
                 "addOnPackages": [
                     {
@@ -289,25 +306,7 @@
                 
             }  
             
-        },
-          {
-              "name": "",
-              "type": "config",
-              "apiVersion": "2015-08-01",
-              "dependsOn":  [ "[concat('Microsoft.Web/sites/extensions', variables('webAppName'),'/MsDeploy')]"],
-              "tags": {
-                "displayName": "ConnectionString"
-              },
-              "properties": {
-    
-                "storage": {
-                  "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',concat(listKeys(variables('storageAccountId'),'2015-05-01-preview').key1))]",
-                  "type": "Custom"
-                }
-    
-              }
-            }
-          
+        }
         
         
         
